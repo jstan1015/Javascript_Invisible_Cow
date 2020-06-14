@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find the cow</title>
+
+
+    <style>
+        h2{
+            text-align: center;
+            width: fit-content;
+            display: inline-block;
+            margin-left: 350px;
+        }
+        h3, #point{
+            text-align: left;
+            font-weight: bold;
+            width:fit-content;
+            display: inline-block;
+            margin-left: 10px;
+            margin-right: 40px;
+            
+        }
+        h4{
+            text-align: right;
+            width:fit-content;
+            font-size: xx-small;
+            display: inline-block;
+            margin-left: 400px;
+            font-weight: bolder;
+            position: fixed;
+        }
+        #cow{
+            position: absolute;
+            width: 20%;
+            height:30%;
+            opacity: 0%;
+         
+        }
+        #outerBox{
+            position: relative;
+            border:  2px solid black;
+            width: 1250px;
+            height: 550px;
+            overflow: hidden;
+        }
+        
+        #moo{
+            display: block;
+        }
+
+       
+    </style>
+
+</head>
+<body>
+
+    <div id="outerBox" >
+
+        <h3>Your Point:<p id="point">0</p></h3>
+        <h2>Find the cow </h2>
+        <h4>Cow position:<p id="position">...</p></h4>
+        <audio id="moo" src="moo.mp3"></audio>
+        
+    
+    <div><image id="cow" src="cow.png"></image></div>
+
+
+        
+    </div>
+    <script>
+
+
+        var cow = document.getElementById("cow");
+        var point = document.getElementById("point");
+        var cursor = document.getElementById("cursor");
+        var position = document.getElementById("position");
+        var i = 0;
+
+        // Height: range -200 till 410 px
+        var cowPosY = (Math.floor(Math.random() * 410) - 200)+"px";
+        // Width: range -200 till 1150 px
+        var cowPosX = (Math.floor(Math.random() * 1150) - 200)+"px";
+
+        cow.style.marginTop = cowPosY;
+        cow.style.marginLeft= cowPosX;
+
+        position.innerHTML= "Margin Left: "+cowPosX+" Margin Top: "+cowPosY;
+
+
+        cow.addEventListener("mouseup",mouseUp);
+        cow.addEventListener("mousedown",foundCow);
+        cow.addEventListener("mouseover",touchCow);
+        cow.addEventListener("mouseout",leaveCow);
+
+
+        var moo = document.getElementById("moo");
+        //slightly visible and got moo sound if the pointer touch the cow
+        function touchCow(){
+            cow.style.opacity="4%";
+            moo.play();
+        }
+
+        //the cow become invisible when the pointer is not pointing at it
+        function leaveCow(){
+            cow.style.opacity=0;
+        }
+
+
+        function mouseUp(){
+            cow.style.opacity="0%";
+            i++;
+            point.innerHTML= i; //update point into html
+            // Height: range -200 till 410 px
+            var cowPosY = (Math.floor(Math.random() * 410) - 200)+"px";
+            // Width: range -200 till 1150 px
+            var cowPosX = (Math.floor(Math.random() * 1150) - 200)+"px";
+
+            cow.style.marginTop = cowPosY;
+            cow.style.marginLeft= cowPosX;
+
+            position.innerHTML= "Margin Left: "+cowPosX+" Margin Top: "+cowPosY;
+        }
+
+        
+        function foundCow(){
+            //cow will be shown when click
+            cow.style.opacity="100%";
+
+        } 
+
+    </script>
+    
+</body>
+</html>
